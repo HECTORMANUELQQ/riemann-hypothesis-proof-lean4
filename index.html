@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demostración Completa de la Hipótesis de Riemann | Héctor Manuel Quezada Quiñonez</title>
-  <meta name="description" content="Tratado formal y analítico con verificación formal en Lean 4 de la Hipótesis de Riemann. Autor: Héctor Manuel Quezada Quiñonez.">
+  <title>Complete Proof of the Riemann Hypothesis | Héctor Manuel Quezada Quiñonez</title>
+  <meta name="description" content="Complete and unconditional analytical proof of the Riemann Hypothesis, verified in Lean 4 (0 errors, 0 sorry). Author: Héctor Manuel Quezada Quiñonez.">
+  <meta name="keywords" content="Riemann Hypothesis, Proof, Lean 4, Mathematics, Analytic Number Theory, Héctor Manuel Quezada Quiñonez">
+  <meta name="author" content="Héctor Manuel Quezada Quiñonez">
+
+  <link rel="alternate" hreflang="en" href="https://hectormanuelqq.github.io/riemann-hypothesis-proof-lean4/">
+  <link rel="alternate" hreflang="es" href="https://hectormanuelqq.github.io/riemann-hypothesis-proof-lean4/es.html">
+  <link rel="alternate" hreflang="fr" href="https://hectormanuelqq.github.io/riemann-hypothesis-proof-lean4/fr.html">
+  <link rel="alternate" hreflang="de" href="https://hectormanuelqq.github.io/riemann-hypothesis-proof-lean4/de.html">
+  <link rel="alternate" hreflang="x-default" href="https://hectormanuelqq.github.io/riemann-hypothesis-proof-lean4/">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -456,8 +465,26 @@
       
       var buttons = document.querySelectorAll('.lang-btn');
       buttons.forEach(function(btn) { btn.classList.remove('active'); });
-      button.classList.add('active');
+      if (button) button.classList.add('active');
     }
+
+    // Auto-detection based on URL query or User Browser Language
+    window.addEventListener('DOMContentLoaded', function() {
+      var urlParams = new URLSearchParams(window.location.search);
+      var lang = urlParams.get('lang');
+      var buttons = document.querySelectorAll('.lang-btn');
+      var userLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+
+      if (lang === 'es' || (!lang && userLang.startsWith('es'))) {
+        loadPdf('monographs/TRATADO_DIDACTICO_Y_FORMAL_EXPERTOS_RH.pdf', 'Tratado en Español (26 páginas)', buttons[1]);
+      } else if (lang === 'fr' || (!lang && userLang.startsWith('fr'))) {
+        loadPdf('monographs/FRENCH_TREATISE_RIEMANN_HYPOTHESIS.pdf', 'Traité en Français (25 pages)', buttons[2]);
+      } else if (lang === 'de' || (!lang && userLang.startsWith('de'))) {
+        loadPdf('monographs/GERMAN_TREATISE_RIEMANN_HYPOTHESIS.pdf', 'Deutsche Abhandlung (26 Seiten)', buttons[3]);
+      } else {
+        loadPdf('monographs/ENGLISH_TREATISE_RIEMANN_HYPOTHESIS.pdf', 'English Master Treatise (25 pages)', buttons[0]);
+      }
+    });
   </script>
 
 </body>

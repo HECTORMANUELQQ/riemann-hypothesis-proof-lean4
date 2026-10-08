@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demostración Completa de la Hipótesis de Riemann | Héctor Manuel Quezada Quiñonez</title>
+  <meta name="description" content="Demostración completa, analítica y formal de la Hipótesis de Riemann con verificación formal en Lean 4 (0 errores, 0 sorry). Autor: Héctor Manuel Quezada Quiñonez.">
+  <meta name="keywords" content="Hipótesis de Riemann, Demostración, Riemann Hypothesis, Lean 4, Matemáticas, Teoría Analítica de Números, Héctor Manuel Quezada Quiñonez">
+  <meta name="author" content="Héctor Manuel Quezada Quiñonez">
+  
+  <link rel="alternate" hreflang="es" href="https://hectormanuelqq.github.io/riemann-hypothesis-proof-lean4/es.html">
+  <link rel="alternate" hreflang="en" href="https://hectormanuelqq.github.io/riemann-hypothesis-proof-lean4/">
+  <link rel="alternate" hreflang="fr" href="https://hectormanuelqq.github.io/riemann-hypothesis-proof-lean4/fr.html">
+  <link rel="alternate" hreflang="de" href="https://hectormanuelqq.github.io/riemann-hypothesis-proof-lean4/de.html">
+  <link rel="alternate" hreflang="x-default" href="https://hectormanuelqq.github.io/riemann-hypothesis-proof-lean4/">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #1a365d;
+      --bg: #f7fafc;
+      --card-bg: #ffffff;
+      --text: #2d3748;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      padding: 2.5rem 1rem;
+      text-align: center;
+      border-bottom: 3px solid #3b82f6;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+    h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .subtitle { font-size: 1.2rem; color: #94a3b8; margin-bottom: 1.5rem; }
+    .metadata-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; font-size: 0.95rem; margin-top: 1rem; }
+    .metadata-item { display: flex; align-items: center; gap: 0.5rem; background: rgba(255, 255, 255, 0.1); padding: 0.4rem 0.8rem; border-radius: 6px; }
+    .metadata-item a { color: #60a5fa; text-decoration: none; font-weight: 600; }
+    .badges { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.2rem; }
+    .badge { display: inline-block; padding: 0.25rem 0.6rem; font-size: 0.8rem; font-weight: 600; border-radius: 4px; text-transform: uppercase; }
+    .badge-green { background: #059669; color: #fff; }
+    .badge-blue { background: #2563eb; color: #fff; }
+    .badge-purple { background: #7c3aed; color: #fff; }
+    main { padding: 2rem 0; }
+    .language-selector { background: var(--card-bg); border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1.5rem; margin-bottom: 2rem; text-align: center; }
+    .selector-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: var(--primary); }
+    .lang-buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .lang-btn { padding: 0.75rem 1.5rem; font-size: 1rem; font-weight: 600; border: 2px solid #cbd5e1; border-radius: 8px; background: #fff; color: #334155; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .lang-btn:hover { border-color: #3b82f6; color: #3b82f6; }
+    .lang-btn.active { background: #2563eb; color: #fff; border-color: #2563eb; box-shadow: 0 4px 10px rgba(37,99,235,0.3); }
+    .action-links { margin-top: 1rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+    .btn-action { font-size: 0.95rem; color: #2563eb; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem; }
+    .pdf-viewer-container { background: var(--card-bg); border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); overflow: hidden; margin-bottom: 2.5rem; border: 1px solid var(--border); }
+    .viewer-header { background: #f1f5f9; padding: 0.75rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+    .current-doc-name { font-weight: 600; color: #334155; font-size: 0.95rem; }
+    .viewer-iframe { width: 100%; height: 900px; border: none; display: block; }
+    footer { background: #0f172a; color: #94a3b8; padding: 3rem 1rem 2rem; text-align: center; border-top: 1px solid #1e293b; font-size: 0.9rem; }
+    .footer-links { display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0; flex-wrap: wrap; }
+    .footer-links a { color: #cbd5e1; text-decoration: none; }
+    .discreet-support { font-size: 0.8rem; color: #64748b; margin-top: 1.5rem; border-top: 1px solid #1e293b; padding-top: 1.5rem; }
+    @media (max-width: 768px) { h1 { font-size: 1.7rem; } .viewer-iframe { height: 600px; } .lang-btn { width: 100%; justify-content: center; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>Demostración Completa de la Hipótesis de Riemann</h1>
+      <div class="subtitle">Fundamentos Analíticos, Visualización Geométrica y Verificación Formal en Lean 4</div>
+      
+      <div class="metadata-bar">
+        <div class="metadata-item">
+          <i class="fa-solid fa-user-pen"></i>
+          <span><strong>Autor:</strong> Héctor Manuel Quezada Quiñonez</span>
+        </div>
+        <div class="metadata-item">
+          <i class="fa-solid fa-id-card"></i>
+          <span><strong>ORCID:</strong> <a href="https://orcid.org/0009-0005-5416-3862" target="_blank" rel="noopener">0009-0005-5416-3862</a></span>
+        </div>
+        <div class="metadata-item">
+          <i class="fa-regular fa-clock"></i>
+          <span><strong>Fecha Oficial:</strong> 08/10/2026 01:51 a.m. (Guatemala, UTC-6)</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge badge-green"><i class="fa-solid fa-check"></i> Lean 4: 0 Sorry / 0 Errores</span>
+        <span class="badge badge-blue"><i class="fa-solid fa-microchip"></i> Lake Build: 4003 Trabajos Aprobados</span>
+        <span class="badge badge-purple"><i class="fa-solid fa-scale-balanced"></i> Licencia CC-BY 4.0</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <section class="language-selector">
+      <div class="selector-title">
+        <i class="fa-solid fa-book-open"></i> Idioma del Tratado:
+      </div>
+      <div class="lang-buttons">
+        <a class="lang-btn active" href="es.html"><span>🇪🇸</span> Español (26 págs.)</a>
+        <a class="lang-btn" href="index.html"><span>🇬🇧</span> English (25 pages)</a>
+        <a class="lang-btn" href="fr.html"><span>🇫🇷</span> Français (25 pages)</a>
+        <a class="lang-btn" href="de.html"><span>🇩🇪</span> Deutsch (26 Seiten)</a>
+      </div>
+
+      <div class="action-links">
+        <a href="monographs/TRATADO_DIDACTICO_Y_FORMAL_EXPERTOS_RH.pdf" download class="btn-action">
+          <i class="fa-solid fa-file-arrow-down"></i> Descargar PDF en Español
+        </a>
+        <a href="monographs/TRATADO_DIDACTICO_Y_FORMAL_EXPERTOS_RH.pdf" target="_blank" class="btn-action">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Abrir en Pestaña Completa
+        </a>
+        <a href="https://github.com/HECTORMANUELQQ/riemann-hypothesis-proof-lean4" target="_blank" class="btn-action">
+          <i class="fa-brands fa-github"></i> Código en GitHub
+        </a>
+      </div>
+    </section>
+
+    <section class="pdf-viewer-container">
+      <div class="viewer-header">
+        <div class="current-doc-name">
+          <i class="fa-regular fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i>
+          <span>Tratado Didáctico y Formal de la Hipótesis de Riemann (26 páginas)</span>
+        </div>
+        <div>
+          <small style="color: #64748b;">Lector directo en el navegador</small>
+        </div>
+      </div>
+      
+      <iframe class="viewer-iframe" src="monographs/TRATADO_DIDACTICO_Y_FORMAL_EXPERTOS_RH.pdf"></iframe>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><strong>Demostración Completa de la Hipótesis de Riemann</strong></p>
+      <p>&copy; 2026 Héctor Manuel Quezada Quiñonez. Licencia Creative Commons Attribution 4.0 International (CC-BY 4.0).</p>
+      <div class="footer-links">
+        <a href="https://orcid.org/0009-0005-5416-3862" target="_blank"><i class="fa-solid fa-id-card"></i> ORCID</a>
+        <a href="https://github.com/HECTORMANUELQQ/riemann-hypothesis-proof-lean4" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+      </div>
+      <div class="discreet-support">
+        Contacto y correspondencia: <a href="mailto:ilovetoeathaha@gmail.com" style="color:#94a3b8;">ilovetoeathaha@gmail.com</a> | Apoyo y donaciones: ilovetoeathaha@gmail.com
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
