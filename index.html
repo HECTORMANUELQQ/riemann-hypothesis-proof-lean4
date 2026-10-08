@@ -467,24 +467,6 @@
       buttons.forEach(function(btn) { btn.classList.remove('active'); });
       if (button) button.classList.add('active');
     }
-
-    // Auto-detection based on URL query or User Browser Language
-    window.addEventListener('DOMContentLoaded', function() {
-      var urlParams = new URLSearchParams(window.location.search);
-      var lang = urlParams.get('lang');
-      var buttons = document.querySelectorAll('.lang-btn');
-      var userLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-
-      if (lang === 'es' || (!lang && userLang.startsWith('es'))) {
-        loadPdf('monographs/TRATADO_DIDACTICO_Y_FORMAL_EXPERTOS_RH.pdf', 'Tratado en Español (26 páginas)', buttons[1]);
-      } else if (lang === 'fr' || (!lang && userLang.startsWith('fr'))) {
-        loadPdf('monographs/FRENCH_TREATISE_RIEMANN_HYPOTHESIS.pdf', 'Traité en Français (25 pages)', buttons[2]);
-      } else if (lang === 'de' || (!lang && userLang.startsWith('de'))) {
-        loadPdf('monographs/GERMAN_TREATISE_RIEMANN_HYPOTHESIS.pdf', 'Deutsche Abhandlung (26 Seiten)', buttons[3]);
-      } else {
-        loadPdf('monographs/ENGLISH_TREATISE_RIEMANN_HYPOTHESIS.pdf', 'English Master Treatise (25 pages)', buttons[0]);
-      }
-    });
   </script>
 
 </body>

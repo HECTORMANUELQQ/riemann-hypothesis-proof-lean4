@@ -1,7 +1,7 @@
 /-
-Copyright (c) 2026 Antigravity. All rights reserved.
-Released under Apache 2.0 license as described in the file LICENSE.
-Authors: Antigravity Contributors
+Copyright (c) 2026 Héctor Manuel Quezada Quiñonez. All rights reserved.
+Released under CC-BY 4.0 license as described in the file LICENSE.
+Authors: Héctor Manuel Quezada Quiñonez
 -/
 import Mathlib.Analysis.Complex.Basic
 import Mathlib.Tactic.Ring
