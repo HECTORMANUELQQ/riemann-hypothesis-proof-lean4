@@ -1,0 +1,8 @@
+/.lake
+*.log
+*.aux
+*.out
+*.toc
+*.py
+scratch/
+cpp_book_note.txt
