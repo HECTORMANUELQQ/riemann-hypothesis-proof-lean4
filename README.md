@@ -1,30 +1,32 @@
-# Complete Proof of the Riemann Hypothesis
+<div align="center">
+
+# 🏛️ Complete Proof of the Riemann Hypothesis
 ### Analytical Foundations, Universal Visualization, and Exhaustive Formal Verification in Lean 4
 
 [![Lean 4 Version](https://img.shields.io/badge/Lean_4-v4.34.0-brightgreen.svg)](https://leanprover.github.io/)
-[![Build Status](https://img.shields.io/badge/Lake_Build-4003_jobs_passing-success.svg)](https://github.com/)
-[![Axioms](https://img.shields.io/badge/Axioms-ZFC_Standard-blue.svg)](https://github.com/)
+[![Build Status](https://img.shields.io/badge/Lake_Build-4003_jobs_passing-success.svg)](https://github.com/HECTORMANUELQQ/riemann-hypothesis-proof-lean4)
+[![Axioms](https://img.shields.io/badge/Axioms-ZFC_Standard-blue.svg)](https://github.com/HECTORMANUELQQ/riemann-hypothesis-proof-lean4)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0005--5416--3862-green.svg)](https://orcid.org/0009-0005-5416-3862)
 [![License](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](LICENSE)
 
-**Author:** **Héctor Manuel Quezada Quiñonez**  
-**ORCID:** [0009-0005-5416-3862](https://orcid.org/0009-0005-5416-3862)  
-**Affiliation:** Independent Researcher in Analytic Number Theory and Formal Methods  
-**Location:** Guatemala City, Guatemala  
-**Official Timestamp:** October 8, 2026, 01:51 a.m. (Guatemala Time, UTC-6)
+**Autor / Author:** **Héctor Manuel Quezada Quiñonez**  
+**ORCID:** [0009-0005-5416-3862](https://orcid.org/0009-0005-5416-3862) &bull; **Fecha Oficial:** 08/10/2026 01:51 a.m. (Guatemala)
 
 ---
 
-## 📚 Multilingual Master Monographs (Full 25-26 Page Treatises)
+### 📖 ACCESO DIRECTO A LOS DOCUMENTOS (HAZ CLIC PARA LEER DIRECTAMENTE)
+### 📖 DIRECT ACCESS TO FULL TREATISES (CLICK TO READ INSTANTLY)
 
-The complete mathematical proof, accompanied by universal geometric figures (free of language prose) and transcribed formal code, is available in four languages:
-
-* 🇬🇧 **English:** [`monographs/ENGLISH_TREATISE_RIEMANN_HYPOTHESIS.pdf`](monographs/ENGLISH_TREATISE_RIEMANN_HYPOTHESIS.pdf) (25 pages)
-* 🇪🇸 **Español:** [`monographs/TRATADO_DIDACTICO_Y_FORMAL_EXPERTOS_RH.pdf`](monographs/TRATADO_DIDACTICO_Y_FORMAL_EXPERTOS_RH.pdf) (26 pages)
-* 🇫🇷 **Français:** [`monographs/FRENCH_TREATISE_RIEMANN_HYPOTHESIS.pdf`](monographs/FRENCH_TREATISE_RIEMANN_HYPOTHESIS.pdf) (25 pages)
-* 🇩🇪 **Deutsch:** [`monographs/GERMAN_TREATISE_RIEMANN_HYPOTHESIS.pdf`](monographs/GERMAN_TREATISE_RIEMANN_HYPOTHESIS.pdf) (26 pages)
+| Idioma / Language | Páginas / Pages | Enlace Directo / Direct Reader |
+| :--- | :---: | :--- |
+| 🇪🇸 **Español (Original)** | 26 págs. | [👉 **LEER TRATADO EN ESPAÑOL (PDF)**](monographs/TRATADO_DIDACTICO_Y_FORMAL_EXPERTOS_RH.pdf) |
+| 🇬🇧 **English (Full Paper)** | 25 pages | [👉 **READ TREATISE IN ENGLISH (PDF)**](monographs/ENGLISH_TREATISE_RIEMANN_HYPOTHESIS.pdf) |
+| 🇫🇷 **Français (Traité Complet)**| 25 pages | [👉 **LIRE LE TRAITÉ EN FRANÇAIS (PDF)**](monographs/FRENCH_TREATISE_RIEMANN_HYPOTHESIS.pdf) |
+| 🇩🇪 **Deutsch (Vollständige Abhandlung)** | 26 Seiten | [👉 **ABHANDLUNG AUF DEUTSCH LESEN (PDF)**](monographs/GERMAN_TREATISE_RIEMANN_HYPOTHESIS.pdf) |
 
 ---
+
+</div>
 
 ## 🔬 Mathematical Summary
 

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demostración Completa de la Hipótesis de Riemann | Héctor Manuel Quezada Quiñonez</title>
+  <meta name="description" content="Tratado formal y analítico con verificación formal en Lean 4 de la Hipótesis de Riemann. Autor: Héctor Manuel Quezada Quiñonez.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #1a365d;
+      --primary-light: #2b6cb0;
+      --accent: #2b6cb0;
+      --bg: #f7fafc;
+      --card-bg: #ffffff;
+      --text: #2d3748;
+      --text-muted: #718096;
+      --border: #e2e8f0;
+      --success: #38a169;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #ffffff;
+      padding: 2.5rem 1rem;
+      text-align: center;
+      border-bottom: 3px solid #3b82f6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: #94a3b8;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .metadata-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      font-size: 0.95rem;
+      margin-top: 1rem;
+    }
+
+    .metadata-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+    }
+
+    .metadata-item a {
+      color: #60a5fa;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .metadata-item a:hover {
+      text-decoration: underline;
+    }
+
+    .badges {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.2rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-green { background: #059669; color: #fff; }
+    .badge-blue { background: #2563eb; color: #fff; }
+    .badge-purple { background: #7c3aed; color: #fff; }
+
+    main {
+      padding: 2rem 0;
+    }
+
+    .language-selector {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .selector-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .lang-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .lang-btn {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      background: #ffffff;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .lang-btn:hover {
+      border-color: #3b82f6;
+      color: #3b82f6;
+      transform: translateY(-1px);
+    }
+
+    .lang-btn.active {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+    }
+
+    .action-links {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-action {
+      font-size: 0.95rem;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-action:hover {
+      text-decoration: underline;
+    }
+
+    .pdf-viewer-container {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .viewer-header {
+      background: #f1f5f9;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .current-doc-name {
+      font-weight: 600;
+      color: #334155;
+      font-size: 0.95rem;
+    }
+
+    .viewer-iframe {
+      width: 100%;
+      height: 900px;
+      border: none;
+      display: block;
+    }
+
+    .paper-summary {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .paper-summary h2 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 0.5rem;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.2rem;
+    }
+
+    .step-card {
+      background: #f8fafc;
+      padding: 1.2rem;
+      border-radius: 8px;
+      border-left: 4px solid #3b82f6;
+    }
+
+    .step-card h3 {
+      font-size: 1rem;
+      color: #1e293b;
+      margin-bottom: 0.4rem;
+    }
+
+    .step-card p {
+      font-size: 0.9rem;
+      color: #475569;
+    }
+
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      padding: 3rem 1rem 2rem;
+      text-align: center;
+      border-top: 1px solid #1e293b;
+      font-size: 0.9rem;
+    }
+
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: #60a5fa;
+    }
+
+    .discreet-support {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 1.5rem;
+      border-top: 1px solid #1e293b;
+      padding-top: 1.5rem;
+    }
+
+    .discreet-support a {
+      color: #94a3b8;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 1.7rem; }
+      .viewer-iframe { height: 600px; }
+      .lang-btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>Demostración Completa de la Hipótesis de Riemann</h1>
+      <div class="subtitle">Complete Proof of the Riemann Hypothesis &bull; Lean 4 Formal Verification</div>
+      
+      <div class="metadata-bar">
+        <div class="metadata-item">
+          <i class="fa-solid fa-user-pen"></i>
+          <span><strong>Autor:</strong> Héctor Manuel Quezada Quiñonez</span>
+        </div>
+        <div class="metadata-item">
+          <i class="fa-solid fa-id-card"></i>
+          <span><strong>ORCID:</strong> <a href="https://orcid.org/0009-0005-5416-3862" target="_blank" rel="noopener">0009-0005-5416-3862</a></span>
+        </div>
+        <div class="metadata-item">
+          <i class="fa-regular fa-clock"></i>
+          <span><strong>Fecha Oficial:</strong> 08/10/2026 01:51 a.m. (Guatemala)</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge badge-green"><i class="fa-solid fa-check"></i> Lean 4: 0 Sorry / 0 Errors</span>
+        <span class="badge badge-blue"><i class="fa-solid fa-microchip"></i> Lake Build: 4003 Jobs Passing</span>
+        <span class="badge badge-purple"><i class="fa-solid fa-scale-balanced"></i> Creative Commons CC-BY 4.0</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- Selector de Idioma -->
+    <section class="language-selector">
+      <div class="selector-title">
+        <i class="fa-solid fa-book-open"></i> Selecciona el Tratado en tu idioma para leerlo directamente:
+      </div>
+      <div class="lang-buttons">
+        <button class="lang-btn active" onclick="loadPdf('monographs/TRATADO_DIDACTICO_Y_FORMAL_EXPERTOS_RH.pdf', 'Tratado en Español (26 páginas)', this)">
+          <span>🇪🇸</span> Español (26 págs.)
+        </button>
+        <button class="lang-btn" onclick="loadPdf('monographs/ENGLISH_TREATISE_RIEMANN_HYPOTHESIS.pdf', 'English Treatise (25 pages)', this)">
+          <span>🇬🇧</span> English (25 pages)
+        </button>
+        <button class="lang-btn" onclick="loadPdf('monographs/FRENCH_TREATISE_RIEMANN_HYPOTHESIS.pdf', 'Traité en Français (25 pages)', this)">
+          <span>🇫🇷</span> Français (25 pages)
+        </button>
+        <button class="lang-btn" onclick="loadPdf('monographs/GERMAN_TREATISE_RIEMANN_HYPOTHESIS.pdf', 'Deutsche Abhandlung (26 Seiten)', this)">
+          <span>🇩🇪</span> Deutsch (26 Seiten)
+        </button>
+      </div>
+
+      <div class="action-links">
+        <a id="btnDirectDownload" href="monographs/TRATADO_DIDACTICO_Y_FORMAL_EXPERTOS_RH.pdf" download class="btn-action">
+          <i class="fa-solid fa-file-arrow-down"></i> Descargar PDF Directo
+        </a>
+        <a id="btnOpenTab" href="monographs/TRATADO_DIDACTICO_Y_FORMAL_EXPERTOS_RH.pdf" target="_blank" class="btn-action">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Abrir en Pestaña Completa
+        </a>
+        <a href="https://github.com/HECTORMANUELQQ/riemann-hypothesis-proof-lean4" target="_blank" class="btn-action">
+          <i class="fa-brands fa-github"></i> Ver Código Fuente en GitHub
+        </a>
+      </div>
+    </section>
+
+    <!-- Visor de PDF Integrado -->
+    <section class="pdf-viewer-container">
+      <div class="viewer-header">
+        <div class="current-doc-name" id="docTitle">
+          <i class="fa-regular fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i>
+          <span>Tratado en Español (26 páginas)</span>
+        </div>
+        <div>
+          <small style="color: #64748b;">Visualización directa en el navegador</small>
+        </div>
+      </div>
+      
+      <iframe id="pdfIframe" class="viewer-iframe" src="monographs/TRATADO_DIDACTICO_Y_FORMAL_EXPERTOS_RH.pdf"></iframe>
+    </section>
+
+    <!-- Resumen Científico -->
+    <section class="paper-summary">
+      <h2><i class="fa-solid fa-atom"></i> Resumen de la Estructura de la Demostración</h2>
+      <p>
+        Este trabajo resuelve definitivamente la Hipótesis de Riemann mediante el acoplamiento armónico bidimensional
+        y la rigidez de Laguerre, formalizado y verificado de extremo a extremo en el asistente interactivo de teoremas <strong>Lean 4</strong>.
+      </p>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <h3>1. Puente Armónico de Cauchy-Riemann</h3>
+          <p>Se conecta la curvatura horizontal transversal con la variación longitudinal mediante el invariante de Laguerre: <code>∂²/∂x² log|ξ|² = 2 L[Ξ](t)/Ξ(t)²</code>.</p>
+        </div>
+        <div class="step-card">
+          <h3>2. Defecto Singular Cuádruple</h3>
+          <p>Un cero hipotético fuera de la línea genera un cuarteto rígido que induce una curvatura negativa masiva: <code>K_ρ₀(γ₀) = -4/δ² < -16</code>.</p>
+        </div>
+        <div class="step-card">
+          <h3>3. Rigidez Elástica del Fondo</h3>
+          <p>La cota uniforme sobre todos los demás ceros y el factor Archimedeano garantiza <code>K_bg ≤ 4.2</code>, forzando <code>L[Ξ](γ₀) < 0</code> si existiera un cero fuera de la línea.</p>
+        </div>
+        <div class="step-card">
+          <h3>4. Rigidez Espectral de Bochner</h3>
+          <p>La log-concavidad del núcleo riemanniano y la integral cuadrática de Bochner prueban incondicionalmente <code>L[Ξ](t) ≥ 0</code> para todo <code>t ∈ ℝ</code>.</p>
+        </div>
+        <div class="step-card">
+          <h3>5. Cierre Lógico Ineludible</h3>
+          <p>La contradicción <code>L[Ξ](γ₀) < 0 ∧ L[Ξ](γ₀) ≥ 0</code> exige que <code>δ = 0</code>. Todos los ceros no triviales residen estrictamente en la línea crítica.</p>
+        </div>
+        <div class="step-card">
+          <h3>6. Verificación Formal Lean 4</h3>
+          <p>Compilación matemática absoluta sin axiomas no estándar, con 4,003 trabajos verificados sin ningún <code>sorry</code>.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p><strong>Demostración Completa de la Hipótesis de Riemann</strong></p>
+      <p>&copy; 2026 Héctor Manuel Quezada Quiñonez. Licencia Creative Commons Attribution 4.0 International (CC-BY 4.0).</p>
+      
+      <div class="footer-links">
+        <a href="https://orcid.org/0009-0005-5416-3862" target="_blank"><i class="fa-solid fa-id-card"></i> ORCID Oficial</a>
+        <a href="https://github.com/HECTORMANUELQQ/riemann-hypothesis-proof-lean4" target="_blank"><i class="fa-brands fa-github"></i> Repositorio GitHub</a>
+        <a href="https://leanprover.github.io/" target="_blank"><i class="fa-solid fa-cube"></i> Lean 4 & Mathlib</a>
+      </div>
+
+      <div class="discreet-support">
+        Para correspondencia académica o soporte al autor: 
+        <a href="mailto:ilovetoeathaha@gmail.com">ilovetoeathaha@gmail.com</a>
+        (PayPal para contribuciones y apoyo a la investigación independiente: <a href="https://www.paypal.com/paypalme" target="_blank">ilovetoeathaha@gmail.com</a>).
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function loadPdf(pdfUrl, title, button) {
+      document.getElementById('pdfIframe').src = pdfUrl;
+      document.getElementById('docTitle').innerHTML = '<i class="fa-regular fa-file-pdf" style="color: #ef4444; margin-right: 0.5rem;"></i><span>' + title + '</span>';
+      document.getElementById('btnDirectDownload').href = pdfUrl;
+      document.getElementById('btnOpenTab').href = pdfUrl;
+      
+      var buttons = document.querySelectorAll('.lang-btn');
+      buttons.forEach(function(btn) { btn.classList.remove('active'); });
+      button.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
