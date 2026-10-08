@@ -19,8 +19,8 @@
 
 | Idioma / Language | Páginas / Pages | Enlace Directo / Direct Reader |
 | :--- | :---: | :--- |
-| 🇪🇸 **Español (Original)** | 26 págs. | [👉 **LEER TRATADO EN ESPAÑOL (PDF)**](monographs/TRATADO_DIDACTICO_Y_FORMAL_EXPERTOS_RH.pdf) |
-| 🇬🇧 **English (Full Paper)** | 25 pages | [👉 **READ TREATISE IN ENGLISH (PDF)**](monographs/ENGLISH_TREATISE_RIEMANN_HYPOTHESIS.pdf) |
+| 🇬🇧 **English (Full Master Treatise)** | 25 pages | [👉 **READ TREATISE IN ENGLISH (PDF)**](monographs/ENGLISH_TREATISE_RIEMANN_HYPOTHESIS.pdf) |
+| 🇪🇸 **Español (Tratado Original)** | 26 págs. | [👉 **LEER TRATADO EN ESPAÑOL (PDF)**](monographs/TRATADO_DIDACTICO_Y_FORMAL_EXPERTOS_RH.pdf) |
 | 🇫🇷 **Français (Traité Complet)**| 25 pages | [👉 **LIRE LE TRAITÉ EN FRANÇAIS (PDF)**](monographs/FRENCH_TREATISE_RIEMANN_HYPOTHESIS.pdf) |
 | 🇩🇪 **Deutsch (Vollständige Abhandlung)** | 26 Seiten | [👉 **ABHANDLUNG AUF DEUTSCH LESEN (PDF)**](monographs/GERMAN_TREATISE_RIEMANN_HYPOTHESIS.pdf) |
 
